@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+        *{
+            margin:0;
+            padding:0;
+            font-family: 'Roboto', sans-serif;
+        }
+        #logo{
+            display: inline-block;
+            margin-left: 20px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        #logo img{
+            width:40px;
+        }
+
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        header{
+            display: flex;
+            justify-content:space-between;
+            background-color: rgb(165, 165, 165);
+        }
+        nav{
+            display: flex;
+            align-self: center;
+        }
+        nav span{
+            margin-left:8px;
+            margin-right: 8px;
+        }
+        #search{
+            margin:5px;
+        }
+        
+        #movie{
+            max-width:650px;
+            margin: 20px;
+        }
+        #movie-details{
+            display: flex;
+            justify-content:center;
+        }
+
+        #movie-details img{
+            width: 300px;
+            margin-left:20px;
+            margin-right: 40px;
+        }
+        #upcoming h1{
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        #title{
+            margin-bottom: 10px;
+        }
+        #title:hover{
+            cursor: pointer;
+        }
+        #sinopse{
+            margin-bottom: 10px;
+        }
+        #movie span{
+            margin-right: 20px;
+        }
+
+        #upcoming{
+            background-color: rgb(228, 228, 228);
+            padding-top: 40px;
+            padding-bottom: 80px;
+        }
+
+
+        .popular{
+            width:80%;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            
+        }
+        .popular img{
+            width:250px;
+            height: 400px;
+            object-fit: cover;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .popular-movie-imgs, .popular-tv-imgs{
+            display: flex;
+            justify-content:space-between;
+            flex-wrap:wrap;
+        }
+        .popular-movie-details, .popular-tv-details{
+            width: 250px;
+        }
+        .popular-movie-details p, .popular-tv-details p{
+            margin-bottom: 10px;
+        }
+        .popular h1{
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        .popular-header{
+            display: flex;
+            justify-content: space-between;
+        }
+        select{
+            height:40px;
+            width:200px;
+            align-self: center;
+        }
+        .popular button{
+            width:200px;
+            align-self: flex-end;
+            margin-top: 20px;
+            background-color: rgb(59, 59, 59);
+            color:white;
+            border: none;
+            padding-top:10px;
+            padding-bottom: 10px;
+            padding-right: 20px;
+            padding-left: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        footer{
+            background-color: rgb(100, 100, 100);
+            height: 150px;
+            text-align: center;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        footer p{
+            color: white;
+        }
+       @media (max-width:700px){
+            #movie-details{
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .popular-movie-imgs, .popular-tv-imgs{
+                justify-content: center;
+            }
+            
+       }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="logo"><img src="botao-play.png" alt=""></div>
+        <nav>
+            <a href="#index.html">UPCOMING </a>
+            <span>|</span>
+            <a href="#index.html">POPULAR</a>
+
+        </nav>
+        <input id="search" type="text" placeholder="Pesquisar filme...">
+    </header>
+
+    <div id="upcoming">
+        <h1>UPCOMING</h1>
+        <div id="movie-details">
+            <img id="poster">
+            <div id="movie">
+                <h2 id="title"></h2>
+                <p id="sinopse"><strong>Sinopse:</strong></p>
+                <span id="director"><strong>Diretor: </strong></span>
+                <span id="writer"><strong>Roteiro: </strong></span>
+                <span id="release"><strong>Estreia: </strong></span>
+                <p style="margin-top:10px;"><strong>Elenco: </strong></p>
+                <p id="cast" style="margin-top:10px;"></p>
+            </div>
+        </div>
+    </div>
+        
+    <div class="popular">
+        <div class="popular-header">
+            <h1>POPULAR MOVIES</h1>
+            <select name="Categoria" id="a">
+                <option value="Aventura">ADVENTURE</option>
+                <option value="Romance">ROMANCE</option>
+                <option value="Comédia">COMEDY</option>
+            </select>
+        </div>
+        <div class="popular-movie-imgs">
+            <div class="popular-movie-details">
+                <img>
+                <p class="title"><strong>Title: </strong></p>
+                <p class="released"><strong>Release Date: </strong></p>
+                <p class=description><strong>Description: </strong></p>
+            </div>
+            <div class="popular-movie-details">
+                <img>
+                <p class="title"><strong>Title: </strong></p>
+                <p class="released"><strong>Release Date: </strong></p>
+                <p class=description><strong>Description: </strong></p>
+            </div>
+            <div class="popular-movie-details">
+                <img>
+                <p class="title"><strong>Title: </strong></p>
+                <p class="released"><strong>Release Date: </strong></p>
+                <p class=description><strong>Description: </strong></p>
+            </div>
+            <div class="popular-movie-details">
+                <img>
+                <p class="title"><strong>Title: </strong></p>
+                <p class="released"><strong>Release Date: </strong></p>
+                <p class=description><strong>Description: </strong></p>
+            </div>
+            
+        </div>
+        <button>+ Carregar mais filmes</button>
+    </div>
+
+
+    <div class="popular">
+        <div class="popular-header">
+            <h1>POPULAR TV SHOWS</h1>
+            <select name="Categoria" id="a">
+                <option value="Aventura">ADVENTURE</option>
+                <option value="Romance">ROMANCE</option>
+                <option value="Comédia">COMEDY</option>
+            </select>
+        </div>
+        <div class="popular-tv-imgs">
+            <div class="popular-tv-details">
+                <img>
+                <p class="title"><strong>Title: </strong></p>
+                <p class="released"><strong>Release Date: </strong></p>
+                <p class=description><strong>Description: </strong></p>
+            </div>
+            <div class="popular-tv-details">
+                <img>
+                <p class="title"><strong>Title: </strong></p>
+                <p class="released"><strong>Release Date: </strong></p>
+                <p class=description><strong>Description: </strong></p>
+            </div>
+            <div class="popular-tv-details">
+                <img>
+                <p class="title"><strong>Title: </strong></p>
+                <p class="released"><strong>Release Date: </strong></p>
+                <p class=description><strong>Description: </strong></p>
+            </div>
+            <div class="popular-tv-details">
+                <img>
+                <p class="title"><strong>Title: </strong></p>
+                <p class="released"><strong>Release Date: </strong></p>
+                <p class=description><strong>Description: </strong></p>
+            </div>
+        </div>
+        <button>+ Carregar mais séries</button>
+    </div>
+
+    <footer><p>Copyright 2022</p></footer>
+</body>
+<script src="script.js">
+</script>
+</html>

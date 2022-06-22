@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+        *{
+            margin:0;
+            padding:0;
+            font-family: 'Roboto', sans-serif;
+        }
+        body{
+            height: 100vh;
+            background-color: rgb(201, 201, 201);
+            display: flex;
+            align-items: center;
+        }
+        #movie-info{
+            display: flex;
+            width: 80%;
+            justify-content: center;
+        
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        #movie-info img{
+            width: 400px;
+        }
+
+        #data-box{
+            width: 600px;
+            margin-left: 40px;
+
+        }
+
+        #data-box p{
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="movie-info">
+        <img id="movie-img">
+        <div id="data-box">
+            <p id="title"><strong>Title: </strong></p>
+            <p id="description"><strong>Description: </strong></p>
+            <p id="director"><strong>Director(s): </strong></p>
+            <p id=cast><strong>Cast: </strong></p>
+            <p id="released"><strong>Release Date: </strong></p>
+            <p id="rating"><strong>Rating: </strong></p>
+            <p id=duration><strong>Duration: </strong></p>
+        </div>
+    </div>
+</body>
+
+<script>
+    let param = new URLSearchParams(window.location.search);
+    let id = parseInt(param.get('id'));
+    let istvshow = param.get('istvshow');
+    console.log(istvshow);
+    let movieinfo = document.querySelector('#movie-info');
+
+    if(istvshow=='false'){
+        let xhr = new XMLHttpRequest();
+        xhr.onload = function(){
+        let obj = JSON.parse(this.responseText);
+
+        movieinfo.querySelector('#movie-img').src = 'https://image.tmdb.org/t/p/w500' + obj.poster_path;
+        movieinfo.querySelector('#title').innerHTML += obj.original_title;
+        movieinfo.querySelector('#description').innerHTML += obj.overview;
+        movieinfo.querySelector('#released').innerHTML += obj.release_date;
+        movieinfo.querySelector('#rating').innerHTML += obj.vote_average + '/10';
+        movieinfo.querySelector('#duration').innerHTML += obj.runtime + ' minutes';
+    }
+    xhr.open('GET', `https://api.themoviedb.org/3/movie/${id}?api_key=d73e5e5da3c043d78e2172924a477cff`);
+    xhr.send();
+
+    xhr = new XMLHttpRequest();
+    xhr.onload = function(){
+        let obj = JSON.parse(this.responseText);
+        console.log(obj);
+        let crewList = obj.crew;
+        let firstIteration = 0;
+        crewList.forEach(function(item){
+            if(firstIteration==0 && item.job=='Director'){
+                movieinfo.querySelector('#director').innerHTML += item.name;
+                firstIteration++;
+            } else if(item.job=='Director'){
+                movieinfo.querySelector('#director').innerHTML += ', ' + item.name;
+            }
+        })
+
+        let castList = obj.cast;
+
+        for(let i=0; i<=7; i++){
+            if(i==0){
+                movieinfo.querySelector('#cast').innerHTML += castList[i].name;
+            } else{
+                movieinfo.querySelector('#cast').innerHTML += ', ' + castList[i].name;
+
+            }
+        }
+    }
+    xhr.open('GET', `https://api.themoviedb.org/3/movie/${id}/credits?api_key=d73e5e5da3c043d78e2172924a477cff`);
+    xhr.send();
+    } else{
+        let xhr =  new XMLHttpRequest();
+        xhr.onload = function(){
+            let obj = JSON.parse(this.responseText);
+            console.log(obj);
+            movieinfo.querySelector('#movie-img').src = 'https://image.tmdb.org/t/p/w500' + obj.poster_path;
+            movieinfo.querySelector('#title').innerHTML += obj.original_name;
+            movieinfo.querySelector('#description').innerHTML += obj.overview;
+            movieinfo.querySelector('#released').innerHTML += obj.first_air_date;
+            movieinfo.querySelector('#rating').innerHTML += obj.vote_average + '/10';
+            movieinfo.querySelector('#duration').innerHTML += obj.episode_run_time + ' minutes';
+        }
+        xhr.open('GET', `https://api.themoviedb.org/3/tv/${id}?api_key=d73e5e5da3c043d78e2172924a477cff`);
+        xhr.send();
+
+        xhr = new XMLHttpRequest();
+        xhr.onload = function(){
+        let obj = JSON.parse(this.responseText);
+        console.log(obj);
+        let crewList = obj.crew;
+        let firstIteration = 0;
+        crewList.forEach(function(item){
+            if(firstIteration==0 && item.job=='Executive Producer'){
+                movieinfo.querySelector('#director').innerHTML = `<strong>Producers: </strong> ${item.name}`;
+                firstIteration++;
+            } else if(item.job=='Executive Producer'){
+                movieinfo.querySelector('#director').innerHTML += ', ' + item.name;
+            }
+        })
+
+        let castList = obj.cast;
+
+        for(let i=0; i<=7; i++){
+            if(i==0){
+                movieinfo.querySelector('#cast').innerHTML += castList[i].name;
+            } else{
+                movieinfo.querySelector('#cast').innerHTML += ', ' + castList[i].name;
+
+            }
+        }
+    }
+    xhr.open('GET', `https://api.themoviedb.org/3/tv/${id}/credits?api_key=d73e5e5da3c043d78e2172924a477cff`);
+    xhr.send();
+}
+</script>
+</html>

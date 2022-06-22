@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+        *{
+            margin:0;
+            padding:0;
+            font-family: 'Roboto', sans-serif;
+        }
+        .movie{
+            display: flex;
+            margin-top: 20px;
+        }
+        .movie img{
+            width: 250px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        input{
+            width: 300px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <input type="text" placeholder="Type a movie or tv show title...">
+    </header>
+    <div id="movie-list">
+    </div>
+</body>
+<script>
+    let search = 'a';
+    document.querySelector('input').addEventListener('input', function(){
+        search = document.querySelector('input').value;
+
+        document.querySelector('#movie-list').innerHTML = '';
+        let xhr = new XMLHttpRequest();
+        xhr.onload = function(){
+        let obj = JSON.parse(this.responseText);
+        console.log(obj);
+        let homepage;
+        for(let i=0; i<20; i++){
+            let id = obj.results[i].id;
+            let xhr2 = new XMLHttpRequest();
+            xhr2.onload = function(){
+                obj2 = JSON.parse(this.responseText);
+                homepage = obj2.homepage;
+                console.log(obj2);
+                document.querySelector('#movie-list').innerHTML += `
+            <div class="movie">
+            <img src="https://image.tmdb.org/t/p/w500${obj.results[i].poster_path}">
+            <div id="movie-data">
+                <a href="${homepage}"><p id="title"><strong>Title: </strong>${obj.results[i].original_title}</p></a>
+            </div>
+        </div>`;
+            }
+            xhr2.open('GET', `https://api.themoviedb.org/3/movie/${id}?api_key=d73e5e5da3c043d78e2172924a477cff&language=en-US`);
+            xhr2.send();
+            
+        }
+    }
+    
+    xhr.open('GET', `https://api.themoviedb.org/3/search/movie?api_key=d73e5e5da3c043d78e2172924a477cff&language=en-US&query=${search}`);
+    xhr.send();
+    })
+    
+
+
+</script>
+</html>
